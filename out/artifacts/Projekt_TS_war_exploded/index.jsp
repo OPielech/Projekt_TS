@@ -11,8 +11,9 @@
     <title>$Title$</title>
   </head>
   <body>
-  <form action="user-regisration.jsp">
-    <button type="submit">Dalej</button>
+  <form action="user-registration.html">
+    <button type="submit">Rejestracja</button>
+    <a href="user-login.html" style="font-size:15px;"><br/>Logowanie</a>
   </form>
   </body>
 </html>
