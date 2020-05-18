@@ -11,8 +11,8 @@ Bardzo ładny user
 
 <label>
     <select name="category">
-        <c:forEach items="${SPECIALISTS_LIST}" var="specialist">
-            <option value="${specialist.specialistName}"></option>
+        <c:forEach var="specialist" items="${SPECIALISTS_LIST}">
+            <option value="${specialist.specialistId}">${specialist.specialistName}</option>
         </c:forEach>
     </select>
 </label>

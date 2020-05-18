@@ -37,6 +37,7 @@ public class ServletLoginUser extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
         boolean isOk = false;
 
@@ -49,7 +50,7 @@ public class ServletLoginUser extends HttpServlet {
         }
 
         if (isOk) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/nice.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/user-menu.html");
             dispatcher.forward(request, response);
         } else {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");

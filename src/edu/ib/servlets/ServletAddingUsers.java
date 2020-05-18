@@ -50,7 +50,7 @@ public class ServletAddingUsers extends HttpServlet {
             e.printStackTrace();
         }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/user-menu.html");
         dispatcher.forward(request, response);
 
     }

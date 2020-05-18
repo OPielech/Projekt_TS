@@ -25,29 +25,49 @@ public class ServletVisitForm extends HttpServlet {
 
         try {
             dbUtilUser = new DBUtilUser(DB_URL);
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (Exception e) {
             throw new ServletException(e);
         }
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        Specialist specialist = new Specialist();
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
 
+//        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin-view.jsp");
+
+        List<Specialist> specialistList = null;
         try {
-
-            List<Specialist> specialists = dbUtilUser.getSpecialists();
-            request.setAttribute("SPECIALISTS_LIST", specialists);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("nice.jsp");
-            dispatcher.forward(request, response);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new ServletException(e);
+            specialistList = dbUtilUser.getSpecialists();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        request.setAttribute("SPECIALISTS_LIST", specialistList);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/nice.jsp");
+        dispatcher.forward(request, response);
+
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+//        Specialist specialist = new Specialist();
+//
+//        try {
+//
+//            List<Specialist> specialists = dbUtilUser.getSpecialists();
+//            request.setAttribute("SPECIALISTS_LIST", specialists);
+//
+//            RequestDispatcher dispatcher = request.getRequestDispatcher("nice.jsp");
+//            dispatcher.forward(request, response);
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            throw new ServletException(e);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
 }//end of class
