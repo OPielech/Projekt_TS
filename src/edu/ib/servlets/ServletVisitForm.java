@@ -1,6 +1,7 @@
 package edu.ib.servlets;
 
 import edu.ib.dbutils.DBUtilUser;
+import edu.ib.entities.Place;
 import edu.ib.entities.Specialist;
 
 import javax.servlet.RequestDispatcher;
@@ -33,41 +34,28 @@ public class ServletVisitForm extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin-view.jsp");
+        response.setCharacterEncoding("UTF-8");
 
         List<Specialist> specialistList = null;
+        List<Place> placeList = null;
+
         try {
             specialistList = dbUtilUser.getSpecialists();
+            placeList = dbUtilUser.getPlaces();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         request.setAttribute("SPECIALISTS_LIST", specialistList);
+        request.setAttribute("PLACES_LIST", placeList);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/nice.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/visit-reservation.jsp");
         dispatcher.forward(request, response);
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        Specialist specialist = new Specialist();
-//
-//        try {
-//
-//            List<Specialist> specialists = dbUtilUser.getSpecialists();
-//            request.setAttribute("SPECIALISTS_LIST", specialists);
-//
-//            RequestDispatcher dispatcher = request.getRequestDispatcher("nice.jsp");
-//            dispatcher.forward(request, response);
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            throw new ServletException(e);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
     }
 
 }//end of class

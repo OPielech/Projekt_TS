@@ -1,7 +1,6 @@
 package edu.ib.servlets;
 
 import edu.ib.dbutils.DBUtilUser;
-import edu.ib.entities.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -11,14 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
-import java.sql.Time;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
-@WebServlet("/ServletLoginUser")
-public class ServletLoginUser extends HttpServlet {
+@WebServlet("/ServletCheckHours")
+public class ServletCheckHours extends HttpServlet {
+
     private DBUtilUser dbUtilUser;
     private final String DB_URL = "jdbc:mysql://localhost:3306/clinic?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=CET";
 
@@ -40,36 +36,35 @@ public class ServletLoginUser extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        PrintWriter out = response.getWriter();
-        boolean isOk = false;
+
+        boolean isOk =false;
+        String specialistName = request.getParameter("specialists");
+        Date visitDate = Date.valueOf(request.getParameter("visitDate"));
+        String placeValue = request.getParameter("places");
 
         try {
-            if (validateUser(request, response))
+            if (isAvailable(specialistName, visitDate, placeValue))
                 isOk = true;
-
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        if (isOk) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/user-menu.html");
+        if (isOk){
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/visit-reservation-hours.jsp");
             dispatcher.forward(request, response);
         } else {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/visit-reservation-error.html");
             dispatcher.forward(request, response);
         }
 
 
     }
 
-    private boolean validateUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String userLogin = request.getParameter("userLogin");
-        String userPassword = request.getParameter("userPassword");
+    private boolean isAvailable(String specialistName, Date visitDate, String placeValue) throws Exception {
 
-        User user = dbUtilUser.getUser(userLogin);
+        int result = dbUtilUser.checkAvailability(specialistName, visitDate, placeValue);
 
-        return user.getUserPassword().equals(userPassword);
-    }
+        return result == 1;
+    }//end of checkAvailability
 
 }//end of class

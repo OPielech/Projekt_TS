@@ -1,5 +1,6 @@
 package edu.ib.dbutils;
 
+import edu.ib.entities.Place;
 import edu.ib.entities.Specialist;
 import edu.ib.entities.User;
 
@@ -75,7 +76,7 @@ public class DBUtilUser extends DBUtil {
         return user;
     }//end of get User
 
-    public List<Specialist> getSpecialists() throws Exception{
+    public List<Specialist> getSpecialists() throws Exception {
         List<Specialist> specialists = new ArrayList<>();
 
         Connection connection = null;
@@ -88,7 +89,7 @@ public class DBUtilUser extends DBUtil {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);
 
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 int specialistId = resultSet.getInt("specialist_id");
                 String specialistName = resultSet.getString("specialist_name");
 
@@ -101,4 +102,55 @@ public class DBUtilUser extends DBUtil {
 
         return specialists;
     }//end of getSpecialists
+
+    public List<Place> getPlaces() throws Exception {
+        List<Place> places = new ArrayList<>();
+
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+            String sql = "select * from places";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                int placeId = resultSet.getInt("place_id");
+                String placeValue = resultSet.getString("place_value");
+
+                places.add(new Place(placeId, placeValue));
+            }
+
+        } finally {
+            close(connection, statement, resultSet);
+        }
+
+        return places;
+    }//end of getPlaces
+
+    public int checkAvailability(String specialistName, Date visitDate, String placeValue) throws Exception {
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int result = 0;
+
+        try {
+            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+            String sql = "select free_terms (\""+specialistName+"\", \""+visitDate+"\", \""+placeValue+"\")as free_terms";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                result = resultSet.getInt("free_terms");
+            }
+
+        } finally {
+            close(connection, statement, resultSet);
+        }
+
+        return result;
+    }
+
 }//end of class
