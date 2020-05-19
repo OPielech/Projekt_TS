@@ -1,10 +1,9 @@
 package edu.ib.dbutils;
 
-import edu.ib.entities.Place;
-import edu.ib.entities.Specialist;
-import edu.ib.entities.User;
+import edu.ib.entities.*;
 
 import java.sql.*;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +39,7 @@ public class DBUtilUser extends DBUtil {
             close(connection, preparedStatement, null);
         }
     }//end of addUser
+
 
     public User getUser(String login) throws SQLException {
         Connection connection = null;
@@ -130,6 +130,63 @@ public class DBUtilUser extends DBUtil {
         return places;
     }//end of getPlaces
 
+    public List<Hour> getHours(String specialistName, Date visitDate, String placeValue) throws Exception {
+        List<Hour> hours = new ArrayList<>();
+
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+            String sql = "call free_hours(\"" + specialistName + "\", \"" + visitDate + "\", \"" + placeValue + "\")";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                int hourId = resultSet.getInt("hour_id");
+                Time hourValue = resultSet.getTime("hour_value");
+                LocalTime localTimeHourValue = hourValue.toLocalTime();
+
+                hours.add(new Hour(hourId, localTimeHourValue));
+            }
+
+        } finally {
+            close(connection, statement, resultSet);
+        }
+
+        return hours;
+    }//end of getHours
+
+    public List<VisitView> getPastVisits(String userLogin) throws Exception {
+        List<VisitView> visitViews = new ArrayList<>();
+
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+            String sql = "call past_visits(\""+userLogin+"\")";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                int visitSpecialistId = resultSet.getInt("visit_specialist_id");
+                int visitPlaceId = resultSet.getInt("visit_place_id");
+                Date visitDate = resultSet.getDate("visit_date");
+                int visitHourId = resultSet.getInt("visit_hour_id");
+
+                visitViews.add(new VisitView(visitSpecialistId,visitPlaceId,visitDate,visitHourId));
+            }
+
+        } finally {
+            close(connection, statement, resultSet);
+        }
+
+        return visitViews;
+    }//end of getHours
+
     public int checkAvailability(String specialistName, Date visitDate, String placeValue) throws Exception {
         Connection connection = null;
         Statement statement = null;
@@ -138,12 +195,125 @@ public class DBUtilUser extends DBUtil {
 
         try {
             connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
-            String sql = "select free_terms (\""+specialistName+"\", \""+visitDate+"\", \""+placeValue+"\")as free_terms";
+            String sql = "select free_terms (\"" + specialistName + "\", \"" + visitDate + "\", \"" + placeValue + "\")as free_terms";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
                 result = resultSet.getInt("free_terms");
+            }
+
+        } finally {
+            close(connection, statement, resultSet);
+        }
+
+        return result;
+    }
+
+        public void addReservation(String userLogin, String specialistName, String placeName, Date visitDate, Time visitHour) throws Exception {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+
+            String sql = "insert into visits (visit_user_id, visit_specialist_id, visit_place_id, visit_date, visit_hour_id) values (?,?,?,?,?)";
+
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, getUserId(userLogin));
+            preparedStatement.setInt(2, getSpecialistId(specialistName));
+            preparedStatement.setInt(3, getPlaceId(placeName));
+            preparedStatement.setDate(4, visitDate);
+            preparedStatement.setInt(5, getHourId(visitHour));
+            preparedStatement.execute();
+        } finally {
+            close(connection, preparedStatement, null);
+        }
+    }//end of addUser
+
+    public int getUserId(String userLogin) throws Exception {
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int result = 0;
+
+        try {
+            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+            String sql = "select user_id from users where user_login=\"" + userLogin + "\"";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                result = resultSet.getInt("user_id");
+            }
+
+        } finally {
+            close(connection, statement, resultSet);
+        }
+
+        return result;
+    }
+
+    public int getSpecialistId(String specialistName) throws Exception {
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int result = 0;
+
+        try {
+            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+            String sql = "select specialist_id from specialists where specialist_name=\"" + specialistName + "\"";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                result = resultSet.getInt("specialist_id");
+            }
+
+        } finally {
+            close(connection, statement, resultSet);
+        }
+
+        return result;
+    }
+
+    public int getPlaceId(String placeName) throws Exception {
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int result = 0;
+
+        try {
+            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+            String sql = "select place_id from places where place_value=\"" + placeName + "\"";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                result = resultSet.getInt("place_id");
+            }
+
+        } finally {
+            close(connection, statement, resultSet);
+        }
+
+        return result;
+    }
+
+    public int getHourId(Time hourValue) throws Exception {
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int result = 0;
+
+        try {
+            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+            String sql = "select hour_id from hours where hour_value=\"" + hourValue + "\"";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                result = resultSet.getInt("hour_id");
             }
 
         } finally {

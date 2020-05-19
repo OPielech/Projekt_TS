@@ -1,9 +1,7 @@
 package edu.ib.servlets;
 
 import edu.ib.dbutils.DBUtilUser;
-import edu.ib.entities.Hour;
-import edu.ib.entities.Place;
-import edu.ib.entities.Specialist;
+import edu.ib.entities.VisitView;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -16,8 +14,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/ServletVisitForm")
-public class ServletVisitForm extends HttpServlet {
+@WebServlet("/ServletPastVisits")
+public class ServletPastVisits extends HttpServlet {
     private DBUtilUser dbUtilUser;
     private final String DB_URL = "jdbc:mysql://localhost:3306/clinic?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=CET";
 
@@ -37,46 +35,25 @@ public class ServletVisitForm extends HttpServlet {
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
 
-        List<Specialist> specialistList = null;
-        List<Place> placeList = null;
 
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/user-visits-past.jsp");
+
+        List<VisitView> visitViewList = null;
+
+        HttpSession session = request.getSession();
+        String userLogin = (String) session.getAttribute("userLogin");
         try {
-            specialistList = dbUtilUser.getSpecialists();
-            placeList = dbUtilUser.getPlaces();
+            visitViewList = dbUtilUser.getPastVisits(userLogin);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        request.setAttribute("SPECIALISTS_LIST", specialistList);
-        request.setAttribute("PLACES_LIST", placeList);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/visit-reservation.jsp");
+        request.setAttribute("VISITS_LIST", visitViewList);
         dispatcher.forward(request, response);
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        response.setContentType("text/html");
-//        response.setCharacterEncoding("UTF-8");
-//
-//        List<Specialist> specialistList = null;
-//        List<Place> placeList = null;
-//
-//        try {
-//            specialistList = dbUtilUser.getSpecialists();
-//            placeList = dbUtilUser.getPlaces();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        request.setAttribute("SPECIALISTS_LIST", specialistList);
-//        request.setAttribute("PLACES_LIST", placeList);
-//
-//        request.setAttribute("mhm", request.getSession().getAttribute("xD"));
-//
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("/visit-reservation.jsp");
-//        dispatcher.forward(request, response);
-
     }
 
 }//end of class

@@ -41,8 +41,6 @@ public class ServletAddingUsers extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
-        PrintWriter out = response.getWriter();
-        boolean isOk = true;
 
         try {
             addUser(request, response);
@@ -50,7 +48,7 @@ public class ServletAddingUsers extends HttpServlet {
             e.printStackTrace();
         }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/user-menu.html");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/user-login.html");
         dispatcher.forward(request, response);
 
     }

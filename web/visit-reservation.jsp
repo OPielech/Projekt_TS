@@ -33,6 +33,11 @@
     <br>
     <button type="submit">Sprawdź dostępność</button>
 
+    <%
+//        out.print(request.getAttribute("mhm"));
+        session.setAttribute("mhm", "kurwa");
+    %>
+
 </form>
 </body>
 </html>

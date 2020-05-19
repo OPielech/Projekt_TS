@@ -7,13 +7,22 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
+<head>
     <title>$Title$</title>
-  </head>
-  <body>
-  <form action="user-registration.html">
+</head>
+<body>
+<form action="user-registration.html">
     <button type="submit">Rejestracja</button>
-    <a href="user-login.html" style="font-size:15px;"><br/>Logowanie</a>
-  </form>
-  </body>
+</form>
+<form action="user-login.html">
+    <button type="submit">Logowanie</button>
+</form>
+
+<%
+    session.setAttribute("xD", "xDDD");
+    session.setAttribute("userLogin", "xs");
+//    session.setAttribute("omg", "omg");
+    out.print(session.getId());
+%>
+</body>
 </html>

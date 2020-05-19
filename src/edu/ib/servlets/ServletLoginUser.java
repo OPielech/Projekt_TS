@@ -10,15 +10,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 @WebServlet("/ServletLoginUser")
 public class ServletLoginUser extends HttpServlet {
+
+    private String userLogin;
+    private String userPassword;
     private DBUtilUser dbUtilUser;
     private final String DB_URL = "jdbc:mysql://localhost:3306/clinic?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=CET";
 
@@ -41,20 +46,23 @@ public class ServletLoginUser extends HttpServlet {
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
-        PrintWriter out = response.getWriter();
         boolean isOk = false;
 
         try {
-            if (validateUser(request, response))
+            if (validateUser(request, response)) {
                 isOk = true;
+
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         if (isOk) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/user-menu.html");
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/user-menu.jsp");
             dispatcher.forward(request, response);
+
         } else {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
             dispatcher.forward(request, response);
@@ -64,12 +72,15 @@ public class ServletLoginUser extends HttpServlet {
     }
 
     private boolean validateUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String userLogin = request.getParameter("userLogin");
-        String userPassword = request.getParameter("userPassword");
+
+        userLogin = request.getParameter("userLogin");
+        userPassword = request.getParameter("userPassword");
 
         User user = dbUtilUser.getUser(userLogin);
 
+
         return user.getUserPassword().equals(userPassword);
     }
+
 
 }//end of class
