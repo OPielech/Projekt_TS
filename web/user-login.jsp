@@ -2,27 +2,29 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <title>Hotel rezerwacje</title>
-    <meta name="description" content="Sprawdź aktualny ranking najlepszych hoteli"/>
-    <meta name="keywords" content="hotel, najlepszy hotel, ranking hoteli"/>
+    <title>Monster Clinic</title>
+    <meta name="description" content="Umów się na wizytę z najlepszymi lekarzami w Polsce"/>
+    <meta name="keywords" content="lekarz, najlepszy lekarz, wizyta lekarska"/>
     <meta name="author" content="Oskar Pielech">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <link rel='icon' href='images/favicon.ico' type='image/x-icon'/>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/cssMain.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
 <main>
     <form action="ServletLoginUser" method="get">
-        <section class="hotels">
+        <section class="clinic">
             <div class="container">
                 <div class="row">
 
+                    <br>
                     <div class="col-lg-3 offset-lg-3">
                         Login:
                     </div>
@@ -44,7 +46,7 @@
 
                     <div class="w-100"></div>
                     <div class="col-lg-2 offset-lg-5">
-                        <input type="submit" value="Rezerwuj">
+                        <button type="submit" class="button5">Zaloguj</button>
                     </div>
 
                 </div>
@@ -65,6 +67,13 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
 </body>
-
+<style>
+    body {
+        background-repeat: no-repeat;
+        background-size: cover;
+        /*background-image: url("images/hotel(1).jfif");*/
+        background-color: black;
+    }
+</style>
 
 </html>

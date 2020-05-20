@@ -10,9 +10,9 @@
 <!doctype html>
 <html lang="pl">
 <head>
-    <title>Panel admina</title>
-    <meta name="description" content="Sprawdź aktualny ranking najlepszych hoteli"/>
-    <meta name="keywords" content="hotel, najlepszy hotel, ranking hoteli"/>
+    <title>Monster Clinic</title>
+    <meta name="description" content="Umów się na wizytę z najlepszymi lekarzami w Polsce"/>
+    <meta name="keywords" content="lekarz, najlepszy lekarz, wizyta lekarska"/>
     <meta name="author" content="Oskar Pielech">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <link rel='icon' href='images/favicon.ico' type='image/x-icon'/>
@@ -21,13 +21,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/cssMain.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
 <body>
 <main>
-    <section class="hotels">
+    <section class="clinic">
         <div class="container">
             <div class="row">
 

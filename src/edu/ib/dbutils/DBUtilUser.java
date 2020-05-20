@@ -20,7 +20,7 @@ public class DBUtilUser extends DBUtil {
         PreparedStatement preparedStatement = null;
 
         try {
-            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+            connection = DriverManager.getConnection(url, "user", "user");
 
             String sql = "insert into users(user_login, user_password, user_name, user_surname, user_email, user_birth_date, user_city, user_postcode, user_phone) values (?,?,?,?,?,?,?,?,?)";
 
@@ -48,7 +48,7 @@ public class DBUtilUser extends DBUtil {
         User user = null;
 
         try {
-            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+            connection = DriverManager.getConnection(url, "user", "user");
 
             String sql = "select * from users where (user_login=\"" + login + "\")";
             statement = connection.createStatement();
@@ -84,7 +84,7 @@ public class DBUtilUser extends DBUtil {
         ResultSet resultSet = null;
 
         try {
-            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+            connection = DriverManager.getConnection(url, "user", "user");
             String sql = "select * from specialists";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);
@@ -111,7 +111,7 @@ public class DBUtilUser extends DBUtil {
         ResultSet resultSet = null;
 
         try {
-            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+            connection = DriverManager.getConnection(url, "user", "user");
             String sql = "select * from places";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);
@@ -138,7 +138,7 @@ public class DBUtilUser extends DBUtil {
         ResultSet resultSet = null;
 
         try {
-            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+            connection = DriverManager.getConnection(url, "user", "user");
             String sql = "call free_hours(\"" + specialistName + "\", \"" + visitDate + "\", \"" + placeValue + "\")";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);
@@ -166,7 +166,7 @@ public class DBUtilUser extends DBUtil {
         ResultSet resultSet = null;
 
         try {
-            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+            connection = DriverManager.getConnection(url, "user", "user");
             String sql = "call past_visits(\""+userLogin+"\")";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);
@@ -195,7 +195,7 @@ public class DBUtilUser extends DBUtil {
         ResultSet resultSet = null;
 
         try {
-            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+            connection = DriverManager.getConnection(url, "user", "user");
             String sql = "call upcoming_visits(\""+userLogin+"\")";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);
@@ -223,7 +223,7 @@ public class DBUtilUser extends DBUtil {
         int result = 0;
 
         try {
-            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+            connection = DriverManager.getConnection(url, "user", "user");
             String sql = "select free_terms (\"" + specialistName + "\", \"" + visitDate + "\", \"" + placeValue + "\")as free_terms";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);
@@ -244,7 +244,7 @@ public class DBUtilUser extends DBUtil {
         PreparedStatement preparedStatement = null;
 
         try {
-            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+            connection = DriverManager.getConnection(url, "user", "user");
 
             String sql = "insert into visits (visit_user_id, visit_specialist_id, visit_place_id, visit_date, visit_hour_id) values (?,?,?,?,?)";
 
@@ -267,7 +267,7 @@ public class DBUtilUser extends DBUtil {
         int result = 0;
 
         try {
-            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+            connection = DriverManager.getConnection(url, "user", "user");
             String sql = "select user_id from users where user_login=\"" + userLogin + "\"";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);
@@ -290,7 +290,7 @@ public class DBUtilUser extends DBUtil {
         int result = 0;
 
         try {
-            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+            connection = DriverManager.getConnection(url, "user", "user");
             String sql = "select specialist_id from specialists where specialist_name=\"" + specialistName + "\"";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);
@@ -313,7 +313,7 @@ public class DBUtilUser extends DBUtil {
         int result = 0;
 
         try {
-            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+            connection = DriverManager.getConnection(url, "user", "user");
             String sql = "select place_id from places where place_value=\"" + placeName + "\"";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);
@@ -336,7 +336,7 @@ public class DBUtilUser extends DBUtil {
         int result = 0;
 
         try {
-            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+            connection = DriverManager.getConnection(url, "user", "user");
             String sql = "select hour_id from hours where hour_value=\"" + hourValue + "\"";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);
@@ -357,7 +357,7 @@ public class DBUtilUser extends DBUtil {
         Statement statement = null;
 
         try {
-            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+            connection = DriverManager.getConnection(url, "user", "user");
             String sql = "call cancel_visit(\""+userLogin+"\","+specialistId+","+placeId+",\""+visitDate+"\","+hourId+")";
             statement = connection.createStatement();
             statement.executeQuery(sql);
@@ -373,7 +373,7 @@ public class DBUtilUser extends DBUtil {
         int result = 0;
 
         try {
-            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+            connection = DriverManager.getConnection(url, "user", "user");
             String sql = "select free_login(\""+userLogin+"\") as free_login";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);

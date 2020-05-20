@@ -12,50 +12,118 @@
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<html lang="pl">
 <head>
-    <title>Title</title>
+    <title>Monster Clinic</title>
+    <meta name="description" content="Umów się na wizytę z najlepszymi lekarzami w Polsce"/>
+    <meta name="keywords" content="lekarz, najlepszy lekarz, wizyta lekarska"/>
+    <meta name="author" content="Oskar Pielech">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <link rel='icon' href='images/favicon.ico' type='image/x-icon'/>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/cssMain.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
-Bardzo ładnie, wybierz godzinke!
 
-<form action="ServletAddReservation" method="get">
+<form action="ServletLoginUser" method="get">
+    <section class="clinic">
+        <div class="container">
+            <div class="row">
 
-    <%
-        out.println(session.getAttribute("userLogin"));
-        out.println(session.getAttribute("userPassword"));
-        out.println(request.getParameter("hours"));
-        out.println(session.getAttribute("specialist"));
-        out.println(session.getAttribute("place"));
-        out.println(session.getAttribute("visitDate"));
+                <div class="col-lg-3 offset-lg-4">
+                    Potwierdzenie wizyty:
+                </div>
 
-        String userLogin = (String) session.getAttribute("userLogin");
-        String specialistName = (String) session.getAttribute("specialist");
-        String placeName = (String) session.getAttribute("place");
-        String visitDate = (String) session.getAttribute("visitDate");
-        String visitHour = request.getParameter("hours")+":00";
+                <div class="w-100"></div>
+                <div class="w-100"></div>
+                <div class="col-lg-3 offset-lg-4">
+                    Specialista:
+                </div>
+                <div class="col-lg-3">
+                    <label>
+                        <%out.println(session.getAttribute("specialist")); %>
+                    </label>
+                </div>
 
-        DBUtilUser dbUtilUser;
-        String DB_URL = "jdbc:mysql://localhost:3306/clinic?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=CET";
+                <div class="w-100"></div>
+                <div class="col-lg-3 offset-lg-4">
+                    Placówka:
+                </div>
+                <div class="col-lg-3">
+                    <label>
+                        <%out.println(session.getAttribute("place")); %>
+                    </label>
+                </div>
 
-        dbUtilUser = new DBUtilUser(DB_URL);
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+                <div class="w-100"></div>
+                <div class="col-lg-3 offset-lg-4">
+                    Data:
+                </div>
+                <div class="col-lg-3">
+                    <label>
+                        <%out.println(session.getAttribute("visitDate")); %>
+                    </label>
+                </div>
 
-        try {
-            dbUtilUser.addReservation(userLogin, specialistName, placeName, Date.valueOf(visitDate), Time.valueOf(visitHour));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+                <div class="w-100"></div>
+                <div class="col-lg-3 offset-lg-4">
+                    Godzina:
+                </div>
+                <div class="col-lg-3">
+                    <label>
+                        <%out.println(request.getParameter("hours")); %>
+                    </label>
+                </div>
+
+                <%
+
+                    String userLogin = (String) session.getAttribute("userLogin");
+                    String specialistName = (String) session.getAttribute("specialist");
+                    String placeName = (String) session.getAttribute("place");
+                    String visitDate = (String) session.getAttribute("visitDate");
+                    String visitHour = request.getParameter("hours") + ":00";
+
+                    DBUtilUser dbUtilUser;
+                    String DB_URL = "jdbc:mysql://localhost:3306/clinic?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=CET";
+
+                    dbUtilUser = new DBUtilUser(DB_URL);
+                    try {
+                        Class.forName("com.mysql.cj.jdbc.Driver");
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        dbUtilUser.addReservation(userLogin, specialistName, placeName, Date.valueOf(visitDate), Time.valueOf(visitHour));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
 
-    %>
+                %>
 
-<%--    <button type="submit">Rezerwuj</button>--%>
+                <div class="w-100"></div>
+                <div class="col-lg-3 offset-lg-5">
+                    <button type="submit" class="button5">Powrót</button>
+                </div>
+            </div>
+        </div>
+    </section>
 
 </form>
 </body>
+<style>
+    body {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: black;
+        color: white;
+    }
+</style>
 </html>

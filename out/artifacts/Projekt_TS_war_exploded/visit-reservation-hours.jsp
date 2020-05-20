@@ -7,20 +7,36 @@
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<html lang="pl">
 <head>
-    <title>Title</title>
+    <title>Monster Clinic</title>
+    <meta name="description" content="Umów się na wizytę z najlepszymi lekarzami w Polsce"/>
+    <meta name="keywords" content="lekarz, najlepszy lekarz, wizyta lekarska"/>
+    <meta name="author" content="Oskar Pielech">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <link rel='icon' href='images/favicon.ico' type='image/x-icon'/>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/cssMain.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
-Bardzo ładnie, wybierz godzinke!
 
 <form action="user-visit-add.jsp" method="get">
 
-    <select name="hours">
-        <c:forEach var="hour" items="${HOURS_LIST}">
-            <option value="${hour.hourValue}">${hour.hourValue}</option>
-        </c:forEach>
-    </select>
+    <div class="w-100"></div>
+    <div class="col-lg-2 offset-lg-5">
+        <select name="hours" class="drop2">
+            <c:forEach var="hour" items="${HOURS_LIST}">
+                <option value="${hour.hourValue}">${hour.hourValue}</option>
+            </c:forEach>
+        </select>
+    </div>
+    <br>
 
     <%
         HttpSession session1 = request.getSession();
@@ -30,8 +46,19 @@ Bardzo ładnie, wybierz godzinke!
         session1.setAttribute("hourValue", request.getParameter("hours"));
     %>
 
-    <button type="submit">Rezerwuj</button>
+    <br>
+    <div class="w-100"></div>
+    <div class="col-lg-2 offset-lg-5">
+        <button type="submit" class="button5">Potwierdź</button>
+    </div>
 
 </form>
 </body>
+<style>
+    body {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: black;
+    }
+</style>
 </html>

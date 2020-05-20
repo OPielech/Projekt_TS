@@ -1,0 +1,140 @@
+.clinic
+{
+    text-align: center;
+    padding: 0;
+    color: white;
+}
+
+.clinic h1
+{
+    font-family: "Times New Roman", Times, serif;
+    font-size: 100px;
+    margin-top: 0px;
+
+    /*background: linear-gradient(90deg, rgba(28,0,1,1) 17%, rgba(138,9,9,1) 87%);*/
+    background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.clinic p
+{
+    margin-bottom: 50px;
+    font-size: 20px;
+
+}
+
+.p2
+{
+    margin-left: 150px;
+    width: 820px;
+    margin-bottom: 30px;
+    font-size: 20px;
+    text-align: justify;
+}
+
+.ranking
+{
+    margin-bottom: 35px;
+}
+
+.clinic img
+{
+    width: 100%;
+    height: auto;
+}
+
+.row
+{
+    margin-top: 0px;
+}
+
+.ranking
+{
+    font-size: 30px;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    --c: #6E0000;
+    color: #6E0000;
+    font-size: 16px;
+    border: 0.3em solid #6E0000;
+    border-radius: 0.5em;
+    width: 12em;
+    height: 3em;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: sans-serif;
+    letter-spacing: 0.1em;
+    text-align: center;
+    line-height: 3em;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: 0.5s;
+    margin: 1em;
+}
+
+nav ul li span {
+    position: absolute;
+    width: 25%;
+    height: 100%;
+    background-color: #6E0000;
+    transform: translateY(150%);
+    border-radius: 50%;
+    left: calc((var(--n) - 1) * 25%);
+    transition: 0.5s;
+    transition-delay: calc((var(--n) - 1) * 0.1s);
+    z-index: -1;
+}
+
+nav ul li:hover {
+    color: black;
+}
+
+nav ul li:hover span {
+    transform: translateY(0) scale(2);
+}
+
+nav ul li span:nth-child(1) {
+    --n: 1;
+}
+
+nav ul li span:nth-child(2) {
+    --n: 2;
+}
+
+nav ul li span:nth-child(3) {
+    --n: 3;
+}
+
+nav ul li span:nth-child(4) {
+    --n: 4;
+}
+
+.clinic a
+{
+    color:white;
+    text-decoration: none;
+}
+
+.clinic a:hover
+{
+    color:white;
+    text-decoration: none;
+}
