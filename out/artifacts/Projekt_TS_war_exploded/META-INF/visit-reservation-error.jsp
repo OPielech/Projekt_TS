@@ -15,8 +15,8 @@
 <form action="ServletVisitForm" method="get">
 
     <%
-         DBUtilUser dbUtilUser;
-         String DB_URL = "jdbc:mysql://localhost:3306/clinic?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=CET";
+        DBUtilUser dbUtilUser;
+        String DB_URL = "jdbc:mysql://localhost:3306/clinic?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=CET";
 
 
         try {
@@ -59,6 +59,9 @@
     <label>
         <input type="date" name="visitDate">
     </label>
+
+    <br>
+    Podaj poprawne dane
 
     <br>
     <button type="submit">Sprawdź dostępność</button>

@@ -14,15 +14,9 @@
 <form action="user-registration.html">
     <button type="submit">Rejestracja</button>
 </form>
-<form action="user-login.html">
+<form action="user-login.jsp">
     <button type="submit">Logowanie</button>
 </form>
 
-<%
-    session.setAttribute("xD", "xDDD");
-    session.setAttribute("userLogin", "xs");
-//    session.setAttribute("omg", "omg");
-    out.print(session.getId());
-%>
 </body>
 </html>

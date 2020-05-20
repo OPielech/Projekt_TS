@@ -12,11 +12,14 @@
     <title>Title</title>
 </head>
 <body>
-<form action="ServletVisitForm" method="post">
+<%--<form action="ServletVisitForm" method="post">--%>
+<%--    <button type="submit">Zarezerwuj wizytę</button>--%>
+<%--</form>--%>
+<form action="visit-reservation.jsp">
     <button type="submit">Zarezerwuj wizytę</button>
 </form>
 
-<form action="index.jsp" method="get">
+<form action="ServletUpcomingVisits" method="post">
     <button type="submit">Nadchodzące wizyty</button>
 </form>
 

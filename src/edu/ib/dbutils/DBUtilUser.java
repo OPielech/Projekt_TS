@@ -185,7 +185,36 @@ public class DBUtilUser extends DBUtil {
         }
 
         return visitViews;
-    }//end of getHours
+    }//end of getPastVisits
+
+    public List<VisitView> getUpcomingVisits(String userLogin) throws Exception {
+        List<VisitView> visitViews = new ArrayList<>();
+
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+            String sql = "call upcoming_visits(\""+userLogin+"\")";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                int visitSpecialistId = resultSet.getInt("visit_specialist_id");
+                int visitPlaceId = resultSet.getInt("visit_place_id");
+                Date visitDate = resultSet.getDate("visit_date");
+                int visitHourId = resultSet.getInt("visit_hour_id");
+
+                visitViews.add(new VisitView(visitSpecialistId,visitPlaceId,visitDate,visitHourId));
+            }
+
+        } finally {
+            close(connection, statement, resultSet);
+        }
+
+        return visitViews;
+    }//end of getUpcomingVisits
 
     public int checkAvailability(String specialistName, Date visitDate, String placeValue) throws Exception {
         Connection connection = null;
@@ -322,5 +351,42 @@ public class DBUtilUser extends DBUtil {
 
         return result;
     }
+
+    public void cancelVisit(String userLogin, int specialistId, int placeId, Date visitDate, int hourId) throws Exception {
+        Connection connection = null;
+        Statement statement = null;
+
+        try {
+            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+            String sql = "call cancel_visit(\""+userLogin+"\","+specialistId+","+placeId+",\""+visitDate+"\","+hourId+")";
+            statement = connection.createStatement();
+            statement.executeQuery(sql);
+        } finally {
+            close(connection, statement, null);
+        }
+    }
+
+    public boolean isLoginAvailable (String userLogin) throws Exception {
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        int result = 0;
+
+        try {
+            connection = DriverManager.getConnection(url, "root", "OsKaR_1998");
+            String sql = "select free_login(\""+userLogin+"\") as free_login";
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                result = resultSet.getInt("free_login");
+            }
+
+            return result == 1;
+
+        } finally {
+            close(connection, statement, null);
+        }
+    }//end of isLoginAvailable
 
 }//end of class

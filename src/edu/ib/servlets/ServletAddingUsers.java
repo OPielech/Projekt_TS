@@ -41,15 +41,44 @@ public class ServletAddingUsers extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
+        boolean isLoginOk = false;
+        boolean areFieldsOk;
+
+        String tempUserName = request.getParameter("userName");
+        String tempUserSurname = request.getParameter("userSurname");
+        String tempUserEmail = request.getParameter("userEmail");
+        String tempUserBirthDate = request.getParameter("userBirthDate");
+        String tempUserCity = request.getParameter("userCity");
+        String tempUserPostcode = request.getParameter("userPostcode");
+        String tempUserPhone = request.getParameter("userPhone");
+        String tempUserLogin = request.getParameter("userLogin");
+        String tempUserPassword = request.getParameter("userPassword");
+
+        areFieldsOk = !tempUserName.isEmpty() && !tempUserSurname.isEmpty() && !tempUserEmail.isEmpty() && !tempUserBirthDate.isEmpty() &&
+                !tempUserCity.isEmpty() && !tempUserPostcode.isEmpty() && !tempUserPhone.isEmpty() && !tempUserLogin.isEmpty() && !tempUserPassword.isEmpty();
 
         try {
-            addUser(request, response);
+            if (isLoginAvailable(request, response)) {
+                isLoginOk = true;
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/user-login.html");
-        dispatcher.forward(request, response);
+        if (isLoginOk && areFieldsOk) {
+            try {
+                addUser(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/user-login.jsp");
+            dispatcher.forward(request, response);
+        }else{
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/user-registration-error.html");
+            dispatcher.forward(request, response);
+        }
 
     }
 
@@ -66,6 +95,13 @@ public class ServletAddingUsers extends HttpServlet {
 
         User user = new User(userLogin, userPassword, userName, userSurname, userEmail, userBirthDate, userCity, userPostcode, userPhone);
         dbUtilUser.addUser(user);
+    }
+
+    private boolean isLoginAvailable(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        String userLogin = request.getParameter("userLogin");
+
+        return dbUtilUser.isLoginAvailable(userLogin);
     }
 
 

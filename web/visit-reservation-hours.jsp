@@ -14,7 +14,7 @@
 <body>
 Bardzo ładnie, wybierz godzinke!
 
-<form action="test.jsp" method="get">
+<form action="user-visit-add.jsp" method="get">
 
     <select name="hours">
         <c:forEach var="hour" items="${HOURS_LIST}">

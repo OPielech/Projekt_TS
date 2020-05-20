@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @WebServlet("/ServletVisitForm")
@@ -34,49 +36,39 @@ public class ServletVisitForm extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-        response.setCharacterEncoding("UTF-8");
-
-        List<Specialist> specialistList = null;
-        List<Place> placeList = null;
-
-        try {
-            specialistList = dbUtilUser.getSpecialists();
-            placeList = dbUtilUser.getPlaces();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        request.setAttribute("SPECIALISTS_LIST", specialistList);
-        request.setAttribute("PLACES_LIST", placeList);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/visit-reservation.jsp");
-        dispatcher.forward(request, response);
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        response.setContentType("text/html");
-//        response.setCharacterEncoding("UTF-8");
-//
-//        List<Specialist> specialistList = null;
-//        List<Place> placeList = null;
-//
-//        try {
-//            specialistList = dbUtilUser.getSpecialists();
-//            placeList = dbUtilUser.getPlaces();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        request.setAttribute("SPECIALISTS_LIST", specialistList);
-//        request.setAttribute("PLACES_LIST", placeList);
-//
-//        request.setAttribute("mhm", request.getSession().getAttribute("xD"));
-//
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("/visit-reservation.jsp");
-//        dispatcher.forward(request, response);
 
-    }
+        response.setContentType("text/html");
+        response.setCharacterEncoding("UTF-8");
+        boolean isDateOk = false;
+        boolean isAfter = false;
+
+        String tempDate = request.getParameter("visitDate");
+
+        if (tempDate.isEmpty())
+            isDateOk=false;
+        else
+            isDateOk=true;
+
+        if (isDateOk) {
+            Date date = Date.valueOf(tempDate);
+            LocalDate localDate = date.toLocalDate();
+
+            if(localDate.isBefore(LocalDate.now()))
+                isAfter = false;
+            else
+                isAfter = true;
+        }
+
+        if (isAfter && isDateOk) {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("ServletCheckHours");
+            dispatcher.forward(request, response);
+        }
+        else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/visit-reservation-error.jsp");
+            dispatcher.forward(request, response);
+        }    }
 
 }//end of class

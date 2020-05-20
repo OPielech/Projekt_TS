@@ -19,9 +19,6 @@ import java.util.List;
 
 @WebServlet("/ServletCheckHours")
 public class ServletCheckHours extends HttpServlet {
-    private String specialistName;
-    private Date visitDate;
-    private String placeValue;
 
     private DBUtilUser dbUtilUser;
     private final String DB_URL = "jdbc:mysql://localhost:3306/clinic?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=CET";
@@ -50,18 +47,10 @@ public class ServletCheckHours extends HttpServlet {
         List<Hour> hourList = null;
 
         boolean isOk = false;
-//        String specialistName = request.getParameter("specialists");
-//        Date visitDate = Date.valueOf(request.getParameter("visitDate"));
-//        String placeValue = request.getParameter("places");
 
-        specialistName = request.getParameter("specialists");
-        visitDate = Date.valueOf(request.getParameter("visitDate"));
-        placeValue = request.getParameter("places");
-
-
-        request.setAttribute("specialists", specialistName);
-        request.setAttribute("visitDate", visitDate);
-        request.setAttribute("places", placeValue);
+        String specialistName = request.getParameter("specialists");
+        Date visitDate = Date.valueOf(request.getParameter("visitDate"));
+        String placeValue = request.getParameter("places");
 
         try {
             if (isAvailable(specialistName, visitDate, placeValue))
@@ -73,7 +62,7 @@ public class ServletCheckHours extends HttpServlet {
         if (isOk) {
 
             try {
-                hourList = dbUtilUser.getHours(specialistName,visitDate,placeValue);
+                hourList = dbUtilUser.getHours(specialistName, visitDate, placeValue);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -82,7 +71,7 @@ public class ServletCheckHours extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/visit-reservation-hours.jsp");
             dispatcher.forward(request, response);
         } else {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/visit-reservation-error.html");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/visit-reservation-error.jsp");
             dispatcher.forward(request, response);
         }
 
@@ -95,15 +84,4 @@ public class ServletCheckHours extends HttpServlet {
         return result == 1;
     }//end of isAvailable
 
-    public String getSpecialistName() {
-        return specialistName;
-    }
-
-    public Date getVisitDate() {
-        return visitDate;
-    }
-
-    public String getPlaceValue() {
-        return placeValue;
-    }
 }//end of class
