@@ -32,12 +32,6 @@
         <div class="container">
             <div class="row">
 
-                <%--                <div class="col-md-6 offset-md-1">--%>
-                <%--                    <div class="stronaGlowna">--%>
-                <%--                        <h1>Rezerwacje</h1>--%>
-                <%--                    </div>--%>
-                <%--                </div>--%>
-
                 <div class="w-100"></div>
                 <div class="col-md-12 ">
                     <div class="sortuj">

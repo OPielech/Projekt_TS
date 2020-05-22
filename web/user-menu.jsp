@@ -24,25 +24,8 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
-<%--<form action="ServletVisitForm" method="post">--%>
-<%--    <button type="submit">Zarezerwuj wizytę</button>--%>
-<%--</form>--%>
-<%--<form action="visit-reservation.jsp">--%>
-<%--    <button type="submit">Zarezerwuj wizytę</button>--%>
-<%--</form>--%>
 
-<%--<form action="ServletUpcomingVisits" method="post">--%>
-<%--    <button type="submit">Nadchodzące wizyty</button>--%>
-<%--</form>--%>
-
-<%--<form action="ServletPastVisits" method="post">--%>
-<%--    <button type="submit">Odbyte wizyty</button>--%>
-<%--</form>--%>
-
-<%--<form action="index.jsp" method="get">--%>
-<%--    <button type="submit">Strona główna</button>--%>
-<%--</form>--%>
-
+<br>
 <div class="w-100"></div>
 <div class="col-lg-2 offset-lg-5">
     <form action="visit-reservation.jsp">

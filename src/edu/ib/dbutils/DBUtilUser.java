@@ -172,12 +172,12 @@ public class DBUtilUser extends DBUtil {
             resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
-                int visitSpecialistId = resultSet.getInt("visit_specialist_id");
-                int visitPlaceId = resultSet.getInt("visit_place_id");
+                String specialistName = resultSet.getString("specialist_name");
+                String placeValue = resultSet.getString("place_value");
                 Date visitDate = resultSet.getDate("visit_date");
-                int visitHourId = resultSet.getInt("visit_hour_id");
+                String hourValue = resultSet.getString("hour_value");
 
-                visitViews.add(new VisitView(visitSpecialistId,visitPlaceId,visitDate,visitHourId));
+                visitViews.add(new VisitView(specialistName,placeValue,visitDate,hourValue));
             }
 
         } finally {
@@ -201,12 +201,12 @@ public class DBUtilUser extends DBUtil {
             resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
-                int visitSpecialistId = resultSet.getInt("visit_specialist_id");
-                int visitPlaceId = resultSet.getInt("visit_place_id");
+                String specialistName = resultSet.getString("specialist_name");
+                String placeValue = resultSet.getString("place_value");
                 Date visitDate = resultSet.getDate("visit_date");
-                int visitHourId = resultSet.getInt("visit_hour_id");
+                String hourValue = resultSet.getString("hour_value");
 
-                visitViews.add(new VisitView(visitSpecialistId,visitPlaceId,visitDate,visitHourId));
+                visitViews.add(new VisitView(specialistName,placeValue,visitDate,hourValue));
             }
 
         } finally {
@@ -352,13 +352,13 @@ public class DBUtilUser extends DBUtil {
         return result;
     }
 
-    public void cancelVisit(String userLogin, int specialistId, int placeId, Date visitDate, int hourId) throws Exception {
+    public void cancelVisit(String userLogin, String specialistId, String placeId, Date visitDate, String hourId) throws Exception {
         Connection connection = null;
         Statement statement = null;
 
         try {
             connection = DriverManager.getConnection(url, "user", "user");
-            String sql = "call cancel_visit(\""+userLogin+"\","+specialistId+","+placeId+",\""+visitDate+"\","+hourId+")";
+            String sql = "call cancel_visit(\""+userLogin+"\",\""+specialistId+"\",\""+placeId+"\",\""+visitDate+"\",\""+hourId+"\");";
             statement = connection.createStatement();
             statement.executeQuery(sql);
         } finally {

@@ -24,6 +24,7 @@
             <div class="container">
                 <div class="row">
 
+                    <br>
                     <div class="col-lg-3 offset-lg-3">
                         Login:
                     </div>
@@ -76,7 +77,6 @@
     body {
         background-repeat: no-repeat;
         background-size: cover;
-        /*background-image: url("images/hotel(1).jfif");*/
         background-color: black;
     }
 </style>

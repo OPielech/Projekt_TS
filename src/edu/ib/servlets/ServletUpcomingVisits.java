@@ -90,10 +90,10 @@ public class ServletUpcomingVisits extends HttpServlet {
     private void cancelVisit(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession();
         String userLogin = (String) session.getAttribute("userLogin");
-        int specialistId = Integer.parseInt(request.getParameter("specialistId"));
-        int placeId = Integer.parseInt(request.getParameter("placeId"));
+        String specialistId = request.getParameter("specialistId");
+        String placeId = request.getParameter("placeId");
         Date visitDate = Date.valueOf((request.getParameter("visitDate")));
-        int hourId = Integer.parseInt(request.getParameter("hourId"));
+        String hourId = request.getParameter("hourId");
         dbUtilUser.cancelVisit(userLogin, specialistId, placeId, visitDate, hourId);
         listVisits(request, response);
     }

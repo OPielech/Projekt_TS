@@ -19,6 +19,7 @@
 </head>
 <body>
 <main>
+    <br>
     <form action="ServletLoginUser" method="get">
         <section class="clinic">
             <div class="container">
@@ -71,7 +72,6 @@
     body {
         background-repeat: no-repeat;
         background-size: cover;
-        /*background-image: url("images/hotel(1).jfif");*/
         background-color: black;
     }
 </style>

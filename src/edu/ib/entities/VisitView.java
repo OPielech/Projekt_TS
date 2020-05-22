@@ -4,34 +4,34 @@ import java.sql.Date;
 
 public class VisitView {
 
-    private int visitSpecialistId;
-    private int visitPlaceId;
+    private String visitSpecialistId;
+    private String visitPlaceId;
     private Date visitDate;
-    private int visitHourId;
+    private String visitHourId;
 
     public VisitView() {
     }
 
-    public VisitView(int visitSpecialistId, int visitPlaceId, Date visitDate, int visitHourId) {
+    public VisitView(String visitSpecialistId, String visitPlaceId, Date visitDate, String visitHourId) {
         this.visitSpecialistId = visitSpecialistId;
         this.visitPlaceId = visitPlaceId;
         this.visitDate = visitDate;
         this.visitHourId = visitHourId;
     }
 
-    public int getVisitSpecialistId() {
+    public String getVisitSpecialistId() {
         return visitSpecialistId;
     }
 
-    public void setVisitSpecialistId(int visitSpecialistId) {
+    public void setVisitSpecialistId(String visitSpecialistId) {
         this.visitSpecialistId = visitSpecialistId;
     }
 
-    public int getVisitPlaceId() {
+    public String getVisitPlaceId() {
         return visitPlaceId;
     }
 
-    public void setVisitPlaceId(int visitPlaceId) {
+    public void setVisitPlaceId(String visitPlaceId) {
         this.visitPlaceId = visitPlaceId;
     }
 
@@ -43,11 +43,11 @@ public class VisitView {
         this.visitDate = visitDate;
     }
 
-    public int getVisitHourId() {
+    public String getVisitHourId() {
         return visitHourId;
     }
 
-    public void setVisitHourId(int visitHourId) {
+    public void setVisitHourId(String visitHourId) {
         this.visitHourId = visitHourId;
     }
 }//end of class

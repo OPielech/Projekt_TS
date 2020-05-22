@@ -29,6 +29,11 @@
 <form action="user-visit-add.jsp" method="get">
 
     <div class="w-100"></div>
+    <div class="col-lg-2 offset-lg-5" style="color: white;">
+        Wybierz godzinę spośród dostępnych na liście i potwierdź wizytę
+    </div>
+    <br>
+    <div class="w-100"></div>
     <div class="col-lg-2 offset-lg-5">
         <select name="hours" class="drop2">
             <c:forEach var="hour" items="${HOURS_LIST}">
@@ -46,7 +51,6 @@
         session1.setAttribute("hourValue", request.getParameter("hours"));
     %>
 
-    <br>
     <div class="w-100"></div>
     <div class="col-lg-2 offset-lg-5">
         <button type="submit" class="button5">Potwierdź</button>

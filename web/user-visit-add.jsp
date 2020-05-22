@@ -36,18 +36,19 @@
         <div class="container">
             <div class="row">
 
+                <div class="w-100"></div>
                 <div class="col-lg-3 offset-lg-4">
-                    Potwierdzenie wizyty:
+                    <br>Potwierdzenie wizyty:
                 </div>
 
-                <div class="w-100"></div>
+                <br>
                 <div class="w-100"></div>
                 <div class="col-lg-3 offset-lg-4">
-                    Specialista:
+                    <br>Specialista:
                 </div>
                 <div class="col-lg-3">
                     <label>
-                        <%out.println(session.getAttribute("specialist")); %>
+                        <br><%out.println(session.getAttribute("specialist")); %>
                     </label>
                 </div>
 

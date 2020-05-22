@@ -53,6 +53,12 @@
     %>
 
     <div class="w-100"></div>
+    <div class="col-lg-2 offset-lg-5" style="color: white;">
+        Wybierz specialistę, placówkę oraz datę a następnie sprawdź czy są dostępne godziny
+    </div>
+
+    <br>
+    <div class="w-100"></div>
     <div class="col-lg-2 offset-lg-5">
         <select name="specialists" class="drop3">
             <c:forEach var="specialist" items="${SPECIALISTS_LIST}">
@@ -85,7 +91,7 @@
     <br>
     <div class="w-100"></div>
     <div class="col-lg-2 offset-lg-5" style="color: white;">
-        Niepoprawne dane lub brak wolych terminów
+        Niepoprawne dane lub brak wolnych terminów
     </div>
 
 
@@ -100,7 +106,6 @@
     body {
         background-repeat: no-repeat;
         background-size: cover;
-        /*background-image: url("images/hotel(1).jfif");*/
         background-color: black;
     }
 </style>
